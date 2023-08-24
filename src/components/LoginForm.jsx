@@ -1,9 +1,12 @@
 import React from 'react'
 import { useFormik } from 'formik';
 import { basicSchema } from '../schema';
+import { useNavigate } from 'react-router-dom'
 
 
 function LoginForm() {
+
+    const navigate = useNavigate();
 
     const { values, errors, handleChange, handleSubmit } = useFormik({
         initialValues: {
@@ -63,7 +66,7 @@ function LoginForm() {
                 />
                 {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
             </div>
-            <button type='submit'>Login</button>
+            <button onClick={() => navigate('/home')} type='submit'>Login</button>
         </form>
     )
 }
