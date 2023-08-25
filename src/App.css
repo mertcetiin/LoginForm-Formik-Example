@@ -3,10 +3,9 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #2d3748;
     color: white;
+    background-color: rgb(2, 33, 59);
 }
-
 
 form {
     width: 500px;
@@ -62,4 +61,8 @@ button {
     color: #fc8181;
     font-size: 12px;
     text-align: left;
+}
+
+Link {
+    color: red;
 }
