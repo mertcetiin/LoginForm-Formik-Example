@@ -3,19 +3,26 @@ import { useFormik } from 'formik';
 import { basicSchema } from '../schema';
 import { useNavigate } from 'react-router-dom'
 
-
 function LoginForm() {
 
     const navigate = useNavigate();
 
-    const { values, errors, handleChange, handleSubmit } = useFormik({
+    const onSubmit = async (values, actions) => {
+        await new Promise((resolve) => {
+            setTimeout(resolve, 1000)
+        })
+        actions.resetForm();
+        navigate('/home');
+    };
+
+    const { values, errors, handleChange, handleSubmit, isSubmitting } = useFormik({
         initialValues: {
             username: '',
             email: '',
             password: '',
             confirmPassword: ''
         },
-        validationSchema: basicSchema
+        validationSchema: basicSchema, onSubmit
     });
 
     return (
@@ -27,6 +34,7 @@ function LoginForm() {
                     id='username'
                     onChange={handleChange}
                     value={values.username}
+                    placeholder='Kullanıcı adınızı giriniz'
                     className={errors.username ? 'input-error' : ''}
                 />
                 {errors.username && <p className='error'>{errors.username}</p>}
@@ -38,6 +46,7 @@ function LoginForm() {
                     id='email'
                     onChange={handleChange}
                     value={values.email}
+                    placeholder='Email adresinizi giriniz'
                     className={errors.email ? 'input-error' : ''}
                 />
                 {errors.email && <p className='error'>{errors.email}</p>}
@@ -61,12 +70,12 @@ function LoginForm() {
                     id='confirmPassword'
                     onChange={handleChange}
                     value={values.confirmPassword}
-                    placeholder='şifrenizi tekrar giriniz'
+                    placeholder='Şifrenizi tekrar giriniz'
                     className={errors.confirmPassword ? 'input-error' : ''}
                 />
                 {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
             </div>
-            <button onClick={() => navigate('/home')} type='submit'>Login</button>
+            <button disabled={isSubmitting} type='submit'>Login</button>
         </form>
     )
 }
